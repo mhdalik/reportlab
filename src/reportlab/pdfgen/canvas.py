@@ -12,7 +12,7 @@ ENABLE_TRACKING = 1 # turn this off to do profile testing w/o tracking
 import os
 import sys
 import re
-from string import join, split, strip, atoi, replace, upper, digits
+from   string import join, split, strip, atoi, replace, upper, digits
 import tempfile
 from math import sin, cos, tan, pi, ceil
 try:
@@ -30,7 +30,7 @@ from reportlab.lib.utils import import_zlib, ImageReader, fp_str, _digester
 from reportlab.lib.boxstuff import aspectRatioFix
 
 digitPat = re.compile('\d')  #used in decimal alignment
-zlib = import_zlib()
+zlib     = import_zlib()
 
 # Robert Kern
 # Constants for closing paths.
@@ -92,7 +92,7 @@ def _normalizeColor(aColor):
     raise ValueError("Unknown color %r" % aColor)
 
 def _normalizeColors(colors):
-    space = None
+    space     = None
     outcolors = []
     for aColor in colors:
         nspace, outcolor = _normalizeColor(aColor)
@@ -178,7 +178,7 @@ class   ExtGState:
 
     def pushCopy(self):
         '''the states must be shared across push/pop, but the values not'''
-        x = self.__class__()
+        x    = self.__class__()
         x._d = self._d.copy()
         x._c = self._c
         return x
@@ -234,14 +234,14 @@ class Canvas(textobject._PDFColorSetter):
     """
 
     def __init__(self,filename,
-                 pagesize=None,
-                 bottomup = 1,
-                 pageCompression=None,
-                 invariant = None,
-                 verbosity=0,
-                 encrypt=None,
-                 cropMarks=None,
-                 pdfVersion=None,
+                 pagesize         = None,
+                 bottomup         = 1,
+                 pageCompression  = None,
+                 invariant        = None,
+                 verbosity        = 0,
+                 encrypt          = None,
+                 cropMarks        = None,
+                 pdfVersion       = None,
                  enforceColorSpace=None,
                  ):
         """Create a canvas of a given size. etc.
@@ -277,12 +277,12 @@ class Canvas(textobject._PDFColorSetter):
         self._onPage = None
         self._cropMarks = cropMarks
 
-        self._pagesize = pagesize
-        self._pageRotation = 0
+        self._pagesize              = pagesize
+        self._pageRotation          = 0
         #self._currentPageHasImages = 0
-        self._pageTransition = None
-        self._pageDuration = None
-        self._destinations = {} # dictionary of destinations for cross indexing.
+        self._pageTransition        = None
+        self._pageDuration          = None
+        self._destinations          = {} # dictionary of destinations for cross indexing.
 
         self.setPageCompression(pageCompression)
         self._pageNumber = 1   # keep a count
@@ -339,32 +339,32 @@ class Canvas(textobject._PDFColorSetter):
         self._fontsize = 12
 
         self._textMode = 0  #track if between BT/ET
-        self._leading = 14.4
+        self._leading  = 14.4
         self._currentMatrix = (1., 0., 0., 1., 0., 0.)
         self._fillMode = 0   #even-odd
 
         #text state
-        self._charSpace = 0
-        self._wordSpace = 0
-        self._horizScale = 100
+        self._charSpace      = 0
+        self._wordSpace      = 0
+        self._horizScale     = 100
         self._textRenderMode = 0
-        self._rise = 0
+        self._rise           = 0
         self._textLineMatrix = (1., 0., 0., 1., 0., 0.)
         self._textMatrix = (1., 0., 0., 1., 0., 0.)
 
         # line drawing
-        self._lineCap = 0
-        self._lineJoin = 0
-        self._lineDash = None  #not done
-        self._lineWidth = 0
+        self._lineCap    = 0
+        self._lineJoin   = 0
+        self._lineDash   = None  #not done
+        self._lineWidth  = 0
         self._mitreLimit = 0
 
         self._fillColorObj = self._strokeColorObj = rl_config.canvas_baseColor or (0,0,0)
-        self._extgstate = ExtGState()
+        self._extgstate    = ExtGState()
 
     def push_state_stack(self):
         state = {}
-        d = self.__dict__
+        d     = self.__dict__
         for name in self.STATE_ATTRIBUTES:
             state[name] = d[name] #getattr(self, name)
         self.state_stack.append(state)
